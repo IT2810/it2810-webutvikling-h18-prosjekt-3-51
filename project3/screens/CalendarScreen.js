@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
 class CalendarScreen extends Component {
@@ -8,6 +8,7 @@ class CalendarScreen extends Component {
   };
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <View>
         <Text>
@@ -19,7 +20,11 @@ class CalendarScreen extends Component {
           showWeekNumbers={true}
           onPressArrowleft={submonth => submonth()}
         />
-
+        <Button
+          title="Add event"
+          onPress={() =>
+            navigate("AddEvent",{})}
+          />
       </View>
     );
   }
