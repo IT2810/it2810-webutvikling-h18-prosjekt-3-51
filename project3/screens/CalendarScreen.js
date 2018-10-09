@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import moment from "moment";
 
 class CalendarScreen extends Component {
   static navigationOptions = {
@@ -24,6 +25,14 @@ class CalendarScreen extends Component {
           title="Add event"
           onPress={() =>
             navigate("AddEvent",{})}
+          />
+        <Button
+          title="view dummy event"
+          onPress={() =>
+            navigate("ViewEvent",{title: "test event", date: moment(), 
+            startTime: moment(), 
+            taskDone: false,
+            endTime: moment().add(1, "hours"), taskDone: false, desc: "Our fantastic event that will eventually work"})}
           />
       </View>
     );
