@@ -17,11 +17,11 @@ class AddEditEvent extends Component {
     endTime: moment().minutes(0).seconds(0).add(30, "minutes"),
     desc: "",
     buttonEnabled: false}
-    this.checkIfValid = this.checkIfValid.bind(this); 
+    this.checkIfValid = this.checkIfValid.bind(this);
   }
 
   checkIfValid() {
-    return 
+    return
   }
 
   render() {
@@ -67,7 +67,7 @@ class AddEditEvent extends Component {
           />
         </View>
         <TextInput style={{
-          textAlignVertical: "top", 
+          textAlignVertical: "top",
           // android only!
           flexGrow: 1, margin: 5, padding: 10, height:50, fontSize: 20,
           backgroundColor: "white"}}
@@ -91,7 +91,7 @@ class AddEditEvent extends Component {
             onPress={() => alert("Result: " + JSON.stringify(this.state))}
           />
         </View>
-        
+
       </KeyboardAvoidingView>
     );
   }

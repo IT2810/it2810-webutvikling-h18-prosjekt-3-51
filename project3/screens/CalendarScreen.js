@@ -25,6 +25,11 @@ class CalendarScreen extends Component {
           onPress={() =>
             navigate("AddEvent",{})}
           />
+          <Button
+            title="Add image to contact"
+            onPress={() =>
+              navigate("AddImage",{})}
+            />
       </View>
     );
   }

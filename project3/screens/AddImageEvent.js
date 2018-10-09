@@ -11,8 +11,6 @@ import {
 class AddImageEvent extends Component {
   constructor(props) {
   super(props);
-  //this.setState({photos: {}});
-  this.state = {};
   }
 
 
@@ -26,12 +24,13 @@ class AddImageEvent extends Component {
          assetType: 'Photos',
        })
        .then(r => {
-         this.setState({ photos: r.edges });
+         //this.setState({ photos: r.edges });
        })
        .catch((err) => {
           //Error Loading Images
        });
      };
+
   render() {
    return (
      <View>
