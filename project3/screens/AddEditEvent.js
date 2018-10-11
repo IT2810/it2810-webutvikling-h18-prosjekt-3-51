@@ -162,7 +162,7 @@ class AddEditEvent extends Component {
           />
           <Button
             title="Add event"
-            onPress={() => {this.saveEvent()}}
+            onPress={() => {this.saveEvent(); goBack()}}
           />
           {this.state.eventExists && <Button
             title="Delete event"
