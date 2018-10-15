@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import CalendarScreen from "../screens/CalendarScreen";
+import ImagePicker from "../screens/ImagePicker";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -56,6 +57,7 @@ SettingsStack.navigationOptions = {
 
 const CalendarStack = createStackNavigator({
   Calendar: CalendarScreen,
+//  AddImage: addImageEvent,
 })
 
 CalendarStack.navigationOptions ={

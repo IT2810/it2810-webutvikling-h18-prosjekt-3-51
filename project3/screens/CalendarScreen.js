@@ -1,18 +1,31 @@
-import React, { Component } from 'react';
-import { View, Text } from "react-native";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 
-class CalendarScreen extends Component {
+import React, { Component } from 'react';
+import { Button, Image, View, Text } from "react-native";
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { ImagePicker } from 'expo';
+
+
+class CalendarScreen extends React.Component {
+  state = {
+    image: null,
+  };
+
   static navigationOptions = {
-    title: 'Calendar',
+    title: 'Calendaar',
   };
 
   render() {
+    let { image } = this.state;
+
     return (
       <View>
-        <Text>
-          Hello world! I am here!
-        </Text>
+      <Button
+       title="Add image to contact"
+       onPress={this._pickImage}
+     />
+     {image &&
+       <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+
         <Calendar
           monthFormat={"yyyy MM"}
           hideDayNames={false}
@@ -23,9 +36,70 @@ class CalendarScreen extends Component {
       </View>
     );
   }
+
+  _pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
+
+    // videre hvor man skal koble image uri til basert
+  };
+
 }
 
 export default CalendarScreen;
+
+// import React, { Component } from 'react';
+// import { Button, Image, View, Text } from "react-native";
+// import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+// import { ImagePicker } from 'expo';
+//
+//
+// class CalendarScreen extends Component {
+//   state = {
+//     image: null,
+//   };
+//
+//   static navigationOptions = {
+//     title: 'Calendar',
+//   };
+//
+//   render() {
+//     let { image } = this.state;
+//     return (
+//       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//         <Button
+//           title="Pick an image from camera roll"
+//           onPress={this._pickImage}
+//         />
+//         {image &&
+//           <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+//       </View>
+//     );
+//   }
+//
+//   _pickImage = async () => {
+//   let result = await ImagePicker.launchImageLibraryAsync({
+//     allowsEditing: true,
+//     aspect: [4, 3],
+//   });
+//
+//   console.log(result);
+//
+//   if (!result.cancelled) {
+//     this.setState({ image: result.uri });
+//   }
+// };
+// }
+//
+// export default CalendarScreen;
 
 /*
 <Agenda
