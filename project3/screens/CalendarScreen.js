@@ -45,6 +45,7 @@ class CalendarScreen extends Component {
           hideDayNames={false}
           showWeekNumbers={true}
           onPressArrowleft={submonth => submonth()}
+          onDayPress={(day) => {navigate("ViewDay", {date: moment(day).subtract(1, "month")})}}
         />
         <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 15 }}>
           <Button
@@ -59,16 +60,6 @@ class CalendarScreen extends Component {
           <Button
             title="Delete all events"
             onPress={() => {store.delete("events")}}
-          />
-          <Button
-            title="view dummy event"
-            onPress={() =>
-              navigate("ViewEvent", {
-                title: "test event", date: moment(),
-                startTime: moment(),
-                taskDone: false,
-                endTime: moment().add(1, "hours"), taskDone: false, desc: "Our fantastic event that will eventually work"
-              })}
           />
         </View>
       </View>

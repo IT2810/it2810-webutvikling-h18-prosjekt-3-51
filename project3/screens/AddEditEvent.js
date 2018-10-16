@@ -13,26 +13,28 @@ class AddEditEvent extends Component {
 
   constructor(props) {
     super(props);
-    // when we get an existing event fed in (editing!)
+    this.state = {
+      title: "",
+      date: moment().format("YYYY-MM-DD"),
+      startTime: moment().minutes(0).seconds(0).format("HH:mm"),
+      endTime: moment().minutes(0).seconds(0).add(30, "minutes").format("HH:mm"),
+      desc: "",
+      eventExists: false
+    }
+  
+  }
+
+  componentDidMount() {
     if (this.props.navigation.state.params.event) {
       e = this.props.navigation.state.params.event
-      this.state = {
+      this.setState({
         title: e.title,
-        date: moment(e.date),
-        startTime: moment(e.startTime),
-        endTime: moment(e.endTime),
+        date: e.date,
+        startTime: e.startTime,
+        endTime: e.endTime,
         desc: e.desc,
         eventExists: true
-      }
-    } else {
-      this.state = {
-        title: "",
-        date: moment().format("YYYY-MM-DD"),
-        startTime: moment().minutes(0).seconds(0),
-        endTime: moment().minutes(0).seconds(0).add(30, "minutes"),
-        desc: "",
-        eventExists: false
-      }
+      })
     }
   }
 
@@ -72,7 +74,7 @@ class AddEditEvent extends Component {
           <Text style={labelStyle}>Title</Text>
           <InputField
             placeholder={"Your title"}
-            value={this.state.title ? this.state.title : null}
+            value={this.state.title}
             onChangeText={(text) => { this.setState({ title: text }) }}
           />
         </View>
@@ -92,7 +94,7 @@ class AddEditEvent extends Component {
             format="HH:mm"
             date={this.state.startTime}
             minuteInterval={10}
-            onDateChange={(time) => { this.setState({ startTime: time }) }}
+            onDateChange={(time) => {this.setState({ startTime: time}) }}
           />
           <Text style={labelStyle}>End time</Text>
           <DatePicker
@@ -100,12 +102,7 @@ class AddEditEvent extends Component {
             format="HH:mm"
             date={this.state.endTime}
             minuteInterval={10}
-            onDateChange={(time) => {
-              if (moment(this.state.startTime) > moment(time)) {
-                this.setState({ endTime: this.state.startTime })
-              } else {
-                this.setState({ endTime: time })
-              }
+            onDateChange={(time) => {this.setState({ endTime: time })
             }}
           />
         </View>
@@ -116,7 +113,7 @@ class AddEditEvent extends Component {
           backgroundColor: "white"
         }}
           placeholder="Description..."
-          value={this.state.desc ? this.state.desc : null}
+          value={this.state.desc}
           multiline={true}
           onChangeText={(text) => { this.setState({ desc: text }) }}
         />

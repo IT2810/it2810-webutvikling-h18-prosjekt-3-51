@@ -9,6 +9,7 @@ import SettingsScreen from '../screens/SettingsScreen';
 import CalendarScreen from "../screens/CalendarScreen";
 import AddEditEvent from "../screens/AddEditEvent";
 import EventInfoScreen from "../screens/EventInfoScreen";
+import DayTaskList from "../screens/DayTaskList";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -60,6 +61,7 @@ const CalendarStack = createStackNavigator({
   Calendar: CalendarScreen,
   AddEvent: AddEditEvent,
   ViewEvent: EventInfoScreen,
+  ViewDay: DayTaskList,
 })
 
 CalendarStack.navigationOptions ={
