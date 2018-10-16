@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Button, AsyncStorage } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import moment from "moment";
+import store from "react-native-simple-store"
 
 class CalendarScreen extends Component {
   static navigationOptions = {
@@ -54,6 +55,10 @@ class CalendarScreen extends Component {
           <Button
             title="Refresh events"
             onPress={this.refreshEvents}
+          />
+          <Button
+            title="Delete all events"
+            onPress={() => {store.delete("events")}}
           />
           <Button
             title="view dummy event"
