@@ -3,6 +3,7 @@ import { View, Text, Button, AsyncStorage } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import moment from "moment";
 import store from "react-native-simple-store"
+import {labelStyle, flexStyle, buttonRowStyle} from "../constants/Styles"
 
 class CalendarScreen extends Component {
   static navigationOptions = {
@@ -36,9 +37,6 @@ class CalendarScreen extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View>
-        <Text>
-          Hello world! I am here!
-        </Text>
         <Calendar
           markedDates={this.state.events}
           monthFormat={"yyyy MM"}
@@ -47,7 +45,7 @@ class CalendarScreen extends Component {
           onPressArrowleft={submonth => submonth()}
           onDayPress={(day) => {navigate("ViewDay", {date: moment(day).subtract(1, "month")})}}
         />
-        <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 15 }}>
+        <View style={buttonRowStyle}>
           <Button
             title="Add event"
             onPress={() =>

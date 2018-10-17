@@ -5,6 +5,7 @@ import DatePicker from "react-native-datepicker";
 import moment from "moment";
 import saveEvent from "../utils/EventStorer.js";
 import store from "react-native-simple-store"
+import {labelStyle, flexStyle, buttonRowStyle} from "../constants/Styles"
 
 class AddEditEvent extends Component {
   static navigationOptions = {
@@ -42,8 +43,6 @@ class AddEditEvent extends Component {
 
   render() {
     const { navigate, goBack } = this.props.navigation;
-    const labelStyle = { fontSize: 20, margin: 15 }
-    const flexStyle = { flexDirection: "row", justifyContent: "center" }
     // the disabled is touchable but does not do anything, so it is effectively disabled anyways
     const disabledButton = (<TouchableOpacity disabled={false}>
       <Text>Add event</Text>
@@ -119,7 +118,7 @@ class AddEditEvent extends Component {
           multiline={true}
           onChangeText={(text) => { this.setState({ desc: text }) }}
         />
-        <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 15 }}>
+        <View style={buttonRowStyle}>
           <Button
             title="Debug State"
             onPress={() => console.warn("Current state: " + JSON.stringify(this.state))}

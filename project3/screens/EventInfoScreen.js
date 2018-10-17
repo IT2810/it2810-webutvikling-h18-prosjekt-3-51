@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, Button, TextInput, KeyboardAvoidingView } from "react-native";
 import moment from "moment";
 import store from "react-native-simple-store";
+import {labelStyle, flexStyle, buttonRowStyle} from "../constants/Styles"
 
 class EventInfoScreen extends Component {
   static navigationOptions = {
@@ -16,8 +17,6 @@ class EventInfoScreen extends Component {
 
   render() {
     const { navigate, goBack } = this.props.navigation;
-    const labelStyle = {fontSize: 20, margin: 15}
-    const flexStyle = {flexDirection: "row", justifyContent: "center" }
     const event = this.props.navigation.state.params.event;
     return (
       <View style={{flex: 1}} behavior={"padding"} enabled>
@@ -37,7 +36,7 @@ class EventInfoScreen extends Component {
           flexGrow: 1, margin: 5, padding: 10, height:50, fontSize: 20,
           backgroundColor: "white"}}
           >{event.desc}</Text>
-        <View style={{flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding:15}}>
+        <View style={buttonRowStyle}>
           <Button
             title="debug props"
             onPress={() => console.warn("Result: " + JSON.stringify(this.props))}

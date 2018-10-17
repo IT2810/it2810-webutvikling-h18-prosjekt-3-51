@@ -3,6 +3,7 @@ import { View, Text, Button, ScrollView, KeyboardAvoidingView, AsyncStorage } fr
 import moment from "moment";
 import EventEntry from "../components/EventEntry";
 import store from "react-native-simple-store";
+import {labelStyle, flexStyle, buttonRowStyle} from "../constants/Styles"
 
 class DayTaskList extends Component {
   static navigationOptions = {
@@ -37,17 +38,17 @@ class DayTaskList extends Component {
     })
     return (
       <View>
-        <Text>{moment(this.props.navigation.state.params.date).format("LL")}</Text>
+        <Text style={labelStyle}>{moment(this.props.navigation.state.params.date).format("LL")}</Text>
         <ScrollView>
           {events}
         </ScrollView>
-        <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 15 }}>
+        <View style={buttonRowStyle}>
+          <Button title="Refresh" onPress={() => this.refresh()} />
           <Button
             title="Add event"
             onPress={() =>
               navigate("AddEvent", { dayDate: moment(this.props.navigation.state.params.date).format("YYYY-MM-DD") })}
           />
-          <Button title="Refresh" onPress={() => this.refresh()} />
         </View>
       </View>);
   }
