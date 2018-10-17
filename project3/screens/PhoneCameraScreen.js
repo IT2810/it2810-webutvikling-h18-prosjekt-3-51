@@ -25,7 +25,7 @@ export default class CameraExample extends React.Component {
       return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {this.state.renderCamera ?
-            _pickImage()
+            this._pickImage()
           :
             <Button
             onPress={() => this.toggleRenderCamera()}
@@ -48,18 +48,19 @@ export default class CameraExample extends React.Component {
 
   _pickImage = () => {
     return (
-      <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} type={this.state.type}>
+      <View >
+          <Camera style={{ width: 320, height: 320 }} type={this.state.type}>
             <View
               style={{
-                flex: 1,
+
                 backgroundColor: 'transparent',
                 flexDirection: 'row',
-                alignItems: 'center', justifyContent: 'center'
+                //alignItems: 'center', justifyContent: 'center'
+                alignSelf: 'stretch',
               }}>{console.log("test2_3")}
               <TouchableOpacity
                 style={{
-                  flex: 0.1,
+
                   alignSelf: 'flex-end',
                   alignItems: 'center',
                 }}
