@@ -11,7 +11,7 @@ class DayTaskList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {events: []}
+    this.state = { events: [] }
   }
 
   refresh() {
@@ -19,7 +19,7 @@ class DayTaskList extends Component {
       console.log(events)
       console.log(moment(this.props.navigation.state.params.date).format("YYYY-MM-DD"))
       const results = events.filter(event => moment(event.date).format("YYYY-MM-DD") == moment(this.props.navigation.state.params.date).format("YYYY-MM-DD"));
-      this.setState({events: results})
+      this.setState({ events: results })
     })
   }
 
@@ -32,14 +32,24 @@ class DayTaskList extends Component {
     const { navigate } = this.props.navigation;
     const events = this.state.events.map((event) => {
       return <EventEntry key={event.startTime} event={event} onPress={() => {
-        navigate("ViewEvent", {event: event})
-      }}/>
+        navigate("ViewEvent", { event: event })
+      }} />
     })
-    return (<View><Text>{moment(this.props.navigation.state.params.date).format("LL")}</Text><ScrollView>
-      {events}
-    </ScrollView>
-    <Button title="Refresh" onPress={() => this.refresh()}/>
-    </View>);
+    return (
+      <View>
+        <Text>{moment(this.props.navigation.state.params.date).format("LL")}</Text>
+        <ScrollView>
+          {events}
+        </ScrollView>
+        <View style={{ flexDirection: "row", justifyContent: "space-around", alignItems: "center", padding: 15 }}>
+          <Button
+            title="Add event"
+            onPress={() =>
+              navigate("AddEvent", { dayDate: moment(this.props.navigation.state.params.date).format("YYYY-MM-DD") })}
+          />
+          <Button title="Refresh" onPress={() => this.refresh()} />
+        </View>
+      </View>);
   }
 }
 

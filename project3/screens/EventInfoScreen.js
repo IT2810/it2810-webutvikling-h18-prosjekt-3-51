@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, KeyboardAvoidingView } from "react-native";
 import moment from "moment";
+import store from "react-native-simple-store";
 
 class EventInfoScreen extends Component {
   static navigationOptions = {
@@ -49,6 +50,13 @@ class EventInfoScreen extends Component {
             title="Edit event"
             // TODO: implement asyncstorage
             onPress={() => navigate("AddEvent", {event: event})}
+          />
+          <Button
+            title="Delete event"
+            onPress={() => {store.get("events").then((events) => {
+              const result = events.filter(evt => evt.title != event.title && moment(evt.date).startOf("day") != moment(event.date).startOf("day"))
+              return store.save("events", result)
+            }); goBack()}}
           />
         </View>
       </View>

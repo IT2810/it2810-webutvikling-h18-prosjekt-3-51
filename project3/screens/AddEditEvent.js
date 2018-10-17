@@ -21,10 +21,12 @@ class AddEditEvent extends Component {
       desc: "",
       eventExists: false
     }
-  
   }
 
   componentDidMount() {
+    if (this.props.navigation.state.params.dayDate) {
+      this.setState({date: this.props.navigation.state.params.dayDate})
+    }
     if (this.props.navigation.state.params.event) {
       e = this.props.navigation.state.params.event
       this.setState({
@@ -136,7 +138,7 @@ class AddEditEvent extends Component {
             onPress={() => {store.get("events").then((events) => {
               const result = events.filter(event => event.title != this.state.title && moment(event.date).startOf("day") != moment(this.state.date).startOf("day"))
               return store.save("events", result)
-            }); goBack()}}
+            }); goBack(null); goBack(null)}}
           />}
         </View>
 
