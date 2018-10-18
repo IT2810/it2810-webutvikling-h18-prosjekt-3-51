@@ -32,7 +32,7 @@ class DayTaskList extends Component {
   render() {
     const { navigate } = this.props.navigation;
     const events = this.state.events.map((event) => {
-      return <EventEntry key={event.startTime} event={event} onPress={() => {
+      return <EventEntry key={event.name + event.startTime} event={event} onPress={() => {
         navigate("ViewEvent", { event: event })
       }} />
     })
