@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Button } from 'react-native';
+import { Text, View, TouchableOpacity, Button, AsyncStorage } from 'react-native';
 import { Camera, Permissions } from 'expo';
 
 export default class CameraExample extends React.Component {
@@ -25,7 +25,7 @@ export default class CameraExample extends React.Component {
       return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {this.state.renderCamera ?
-            _pickImage()
+            this._pickImage()
           :
             <Button
             onPress={() => this.toggleRenderCamera()}
@@ -35,6 +35,7 @@ export default class CameraExample extends React.Component {
             style={{ width: 200, height: 200 }}
             />
         }
+
       </View>
       );
     }
@@ -48,18 +49,19 @@ export default class CameraExample extends React.Component {
 
   _pickImage = () => {
     return (
-      <View style={{ flex: 1 }}>
-          <Camera style={{ flex: 1 }} type={this.state.type}>
+      <View >
+          <Camera ref={ref => { this.camera = ref; }} style={{ width: 320, height: 320 }} type={this.state.type}>
             <View
               style={{
-                flex: 1,
+
                 backgroundColor: 'transparent',
                 flexDirection: 'row',
-                alignItems: 'center', justifyContent: 'center'
+                //alignItems: 'center', justifyContent: 'center'
+                alignSelf: 'stretch',
               }}>{console.log("test2_3")}
               <TouchableOpacity
                 style={{
-                  flex: 0.1,
+
                   alignSelf: 'flex-end',
                   alignItems: 'center',
                 }}
@@ -77,11 +79,37 @@ export default class CameraExample extends React.Component {
               </TouchableOpacity>
             </View>
           </Camera>{console.log("test2_66")}
+
+          <Button
+          /*onPress={() => (async () => {if (this.camera) {
+            {console.log("kjoert22")}
+            let photo = await this.camera.takePictureAsync();
+            {console.log("kjoert2")}}}
+          )()
+        }*/
+          onPress={async () => {
+              if (this.camera) {
+              let photo = await this.camera.takePictureAsync();
+              {console.log("kjoert33")}
+            }}}
+
+          title="Ta bilde av kontakt"
+          color="#841584"
+          accessibilityLabel="Ta bilde av kontakt"
+          style={{ width: 200, height: 200 }}
+          />
         </View>
 
       );
 
   };
+
+  // snap = async () => {
+  //   if (this.camera) {
+  //     let photo = await this.camera.takePictureAsync();
+  //     {console.log("kjoert2")}
+  //     }
+  //   };
 
 }
 /*
