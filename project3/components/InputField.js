@@ -11,7 +11,7 @@ class InputField extends Component {
     return (
       <TextInput
         style={{
-        flexGrow: 1, margin: 5, padding: 10, height:50, fontSize: 20,
+        flexGrow: 1, margin: 5, padding: 10, height:50, fontSIze: 12,
         backgroundColor: "white"}}
         
         placeholder={this.props.placeholder}

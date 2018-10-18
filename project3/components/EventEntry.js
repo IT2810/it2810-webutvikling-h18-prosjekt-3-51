@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity } from "react-native";
 import moment from "moment";
 
-const labelStyle = {fontSize: 20, margin: 15}
+const notDoneStyle = {fontSize: 20, margin: 15, backgroundColor: "#FFAAAA"}
+const doneStyle = {fontSize: 20, margin: 15, backgroundColor: "#AAFFAA"}
 
 class EventEntry extends Component {
 
@@ -16,7 +17,7 @@ class EventEntry extends Component {
   render() {
     return (
       <TouchableOpacity onPress={this.props.onPress}>
-        <Text style={labelStyle}>{this.startTime} {this.title}</Text>
+        <Text style={this.taskDone ? doneStyle : notDoneStyle}> {this.startTime} {this.title}</Text>
       </TouchableOpacity>
     );
   }
