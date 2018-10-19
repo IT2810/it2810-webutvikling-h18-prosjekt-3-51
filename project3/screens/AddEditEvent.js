@@ -3,7 +3,6 @@ import { View, Text, Button, TextInput, KeyboardAvoidingView, TouchableOpacity }
 import InputField from "../components/InputField";
 import DatePicker from "react-native-datepicker";
 import moment from "moment";
-import saveEvent from "../utils/EventStorer.js";
 import store from "react-native-simple-store"
 import {labelStyle, flexStyle, buttonRowStyle} from "../constants/Styles"
 
@@ -124,14 +123,14 @@ class AddEditEvent extends Component {
           onChangeText={(text) => { this.setState({ desc: text }) }}
         />
         <View style={buttonRowStyle}>
-          <Button
+          {/* <Button
             title="Debug State"
             onPress={() => console.warn("Current state: " + JSON.stringify(this.state))}
-          />
-          <Button
+          /> */}
+          {/* <Button
             title="Debug Storage"
             onPress={() => {store.get("events").then((events) => {console.log(events)})}}
-          />
+          /> */}
           <Button
             title="Cancel"
             onPress={() => goBack()}

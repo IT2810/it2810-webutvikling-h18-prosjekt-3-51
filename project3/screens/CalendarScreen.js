@@ -64,10 +64,10 @@ class CalendarScreen extends Component {
             title="Refresh events"
             onPress={this.refreshEvents}
           /> */}
-          <Button
+          {/* <Button
             title="Delete all events"
             onPress={() => {store.delete("events")}}
-          />
+          /> */}
         </View>
       </View>
     );

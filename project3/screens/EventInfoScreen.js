@@ -36,10 +36,10 @@ class EventInfoScreen extends Component {
           backgroundColor: "white"}}
           >{event.desc}</Text>
         <View style={buttonRowStyle}>
-          <Button
+          {/* <Button
             title="debug props"
             onPress={() => console.warn("Result: " + JSON.stringify(this.props))}
-          />
+          /> */}
           <Button
           title="Back"
           onPress={() => goBack()}
