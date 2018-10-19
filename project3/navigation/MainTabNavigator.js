@@ -1,76 +1,58 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 import CalendarScreen from "../screens/CalendarScreen";
-
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
-});
-
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
-};
-
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
-});
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
-    />
-  ),
-};
-
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-});
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-    />
-  ),
-};
+import AddEditEvent from "../screens/AddEditEvent";
+import EventInfoScreen from "../screens/EventInfoScreen";
+import DayTaskList from "../screens/DayTaskList";
+import EmojIcon from '../components/EmojIcon';
+import CameraExample from "../screens/PhoneCameraScreen";
+import AddImageEvent from "../screens/AddImageEvent";
+import ContactsScreen from "../screens/ContactsScreen";
+import AddContact from "../screens/AddContact";
+import ViewContact from "../screens/ViewContact";
 
 const CalendarStack = createStackNavigator({
   Calendar: CalendarScreen,
+  AddEvent: AddEditEvent,
+  ViewEvent: EventInfoScreen,
+  ViewDay: DayTaskList,
 })
 
 CalendarStack.navigationOptions ={
   tabBarLabel: "Calendar",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-    />
+    <EmojIcon emoji={"📅"} focused={focused}/>
+  ),
+};
+
+const CameraStack = createStackNavigator({
+  Camera: CameraExample,
+  Gallery: AddImageEvent,
+})
+
+CameraStack.navigationOptions ={
+  tabBarLabel: "Camera",
+  tabBarIcon: ({ focused }) => (
+    <EmojIcon emoji={"📷"} focused={focused}/>
+  ),
+};
+
+const ContactsStack = createStackNavigator({
+  Contacts: ContactsScreen,
+  AddContact: AddContact,
+  ViewContact: ViewContact,
+})
+
+ContactsStack.navigationOptions ={
+  tabBarLabel: "Contacts",
+  tabBarIcon: ({ focused }) => (
+    <EmojIcon emoji={"👥"} focused={focused}/>
   ),
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
   CalendarStack,
+  ContactsStack,
+  CameraStack,
 });
