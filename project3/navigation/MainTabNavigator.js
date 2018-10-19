@@ -8,6 +8,7 @@ import EventInfoScreen from "../screens/EventInfoScreen";
 import DayTaskList from "../screens/DayTaskList";
 import EmojIcon from '../components/EmojIcon';
 import CameraExample from "../screens/PhoneCameraScreen";
+import AddImageEvent from "../screens/AddImageEvent";
 
 const SettingsStack = createStackNavigator({
   Settings: SettingsScreen,
@@ -36,6 +37,7 @@ CalendarStack.navigationOptions ={
 
 const CameraStack = createStackNavigator({
   Camera: CameraExample,
+  Gallery: AddImageEvent,
 })
 
 CameraStack.navigationOptions ={

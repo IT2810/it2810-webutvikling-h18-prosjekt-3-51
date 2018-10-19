@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, KeyboardAvoidingView } from "react-native";
-import InputField from "../components/InputField";
-import DatePicker from "react-native-datepicker";
-import moment from "moment";
-import {
-  AppRegistry, FlatList, StyleSheet, ScrollView
-} from 'react-native';
+import { View, Text, Button, CameraRoll, KeyboardAvoidingView, AppRegistry, FlatList, StyleSheet, ScrollView } from "react-native";
 
 
 class AddImageEvent extends Component {
   constructor(props) {
   super(props);
+    this.state = {photos: [], hasPermission: false}
   }
 
 
@@ -18,23 +13,33 @@ class AddImageEvent extends Component {
     return
   }
 
-  _handleButtonPress = () => {
-     CameraRoll.getPhotos({
-         first: 20,
-         assetType: 'Photos',
-       })
-       .then(r => {
-         //this.setState({ photos: r.edges });
-       })
-       .catch((err) => {
-          //Error Loading Images
-       });
-     };
+  async componentWillMount() {
+    const { status } = await Permissions.askAsync(Permissions.READ_EXTERNAL_STORAGE);
+    this.setState({ hasCameraPermission: status === 'granted' });
+  }
+
+  // _handleButtonPress = () => {
+  //    CameraRoll.getPhotos({
+  //        first: 20,
+  //        assetType: 'Photos',
+  //      })
+  //      .then((r) => {
+  //        console.log(r)
+  //       //  this.setState({ photos: r.edges });
+  //      })
+  //      .catch((err) => {
+  //         //Error Loading Images
+  //      });
+  //    };
 
   render() {
    return (
      <View>
-       <Button title="Load Images" onPress={this._handleButtonPress} />
+       <Button title="Load Images" onPress={async () => CameraRoll.getPhotos({
+         first: 20,
+         assetType: 'Photos',
+       }).then((photos) => {console.log(photos)})} />
+       {this.state.hasPermission ? {} : (<Text>No permission to load images!</Text>)}
        <ScrollView>
          {this.state.photos.map((p, i) => {
          return (
