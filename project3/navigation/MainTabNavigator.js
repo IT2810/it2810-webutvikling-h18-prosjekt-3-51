@@ -10,6 +10,8 @@ import CalendarScreen from "../screens/CalendarScreen";
 import AddEditEvent from "../screens/AddEditEvent";
 import EventInfoScreen from "../screens/EventInfoScreen";
 import DayTaskList from "../screens/DayTaskList";
+import ContactsScreen from "../screens/ContactsScreen";
+import AddContact from "../screens/AddContact";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -74,9 +76,25 @@ CalendarStack.navigationOptions ={
   ),
 };
 
+const ContactsStack = createStackNavigator({
+  Contacts: ContactsScreen,
+  AddContact: AddContact,
+})
+
+ContactsStack.navigationOptions ={
+  tabBarLabel: "Contacts",
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+    />
+  ),
+};
+
 export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
   SettingsStack,
   CalendarStack,
+  ContactsStack,
 });
