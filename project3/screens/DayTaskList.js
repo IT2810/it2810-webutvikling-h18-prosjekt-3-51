@@ -25,7 +25,6 @@ class DayTaskList extends Component {
 
   updateOneEvent(oldEvent, value){
     // deletes existing event entry in store and adds an updated one
-    // it's not pretty
     oldEvent["taskDone"] = value
     store.get("events").then((events) => {
       const result = events.filter(event => event.title != oldEvent.title && moment(event.date).startOf("day") != moment(oldEvent.date).startOf("day"))
@@ -36,6 +35,7 @@ class DayTaskList extends Component {
   }
 
   componentDidMount() {
+    // subscribe to focus events (when returning from a new page) and refresh the daily list 
     const didFocusSub = this.props.navigation.addListener(
       'didFocus',
       payload => {
@@ -43,12 +43,13 @@ class DayTaskList extends Component {
         (async () => this.refresh())();
       }
     );
-    // fetch all events in day
+    // fetch all events in day the first time
     this.refresh()
   }
 
   render() {
     const { navigate } = this.props.navigation;
+    // map events to EventEntries with switches that call updateOneEvent
     const events = this.state.events.map((event) => {
       return <EventEntry key={event.name + event.startTime} event={event} onPress={() => {
         navigate("ViewEvent", { event: event })

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { TextInput } from "react-native";
 
 class InputField extends Component {
+  /* Input field that expands on TextInput and applies a style
+  */
 
   constructor(props) {
     super(props);

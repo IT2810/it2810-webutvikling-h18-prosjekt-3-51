@@ -18,6 +18,8 @@ class CalendarScreen extends Component {
   }
 
   async componentDidMount() {
+    // Subscribe to didFocus events and refresh the calendar (when returning from a different screen)
+    // this makes sure dates get marked with a dot when events are added to them
     const didFocusSub = this.props.navigation.addListener(
       'didFocus',
       payload => {
@@ -25,12 +27,13 @@ class CalendarScreen extends Component {
         (async () => this.refreshEvents())();
       }
     );
+    // refresh the events the first time anyways
     await this.refreshEvents()
   }
 
   async refreshEvents() {
+    // refreshes the events by fetching from asyncstorage and creating an object to feed into markedDates
     try {
-      console.log("Refreshing calendar events view")
       const value = await AsyncStorage.getItem("events"); // fetch all events, should come as a JSON-array
       events = value ? JSON.parse(value) : [] // parse it to an array or create a new array in case 
       let markedDates = {}
@@ -50,7 +53,6 @@ class CalendarScreen extends Component {
           monthFormat={"yyyy MM"}
           hideDayNames={false}
           showWeekNumbers={true}
-          onPressArrowleft={submonth => submonth()}
           onDayPress={(day) => {navigate("ViewDay", {date: moment(day).subtract(1, "month")})}}
         />
         <View style={buttonRowStyle}>
@@ -74,22 +76,3 @@ class CalendarScreen extends Component {
 }
 
 export default CalendarScreen;
-
-/*
-<Agenda
-  items={{
-      "2018-10-05": [{text: "hello world!"}],
-      "2018-10-07": [{text:"what's on your agenda?"}]
-    }}
-  renderitem={(item, firstItemInDay) => {return (<View>
-    <Text>contents: {item.text}</Text>
-  </View>);}}
-  renderDay={(day, item) => {return (<View />);}}
-  renderEmptyDate={() => {return (<View />);}}
-  renderKnob={() => {return (<View />);}}
-  renderEmptyData = {() => {return (<View />);}}
-  rowHasChanged={(r1, r2) => {return r1.text !== r2.text}}
-  refreshing={false}
-  refreshControl={null}
-  />
-*/

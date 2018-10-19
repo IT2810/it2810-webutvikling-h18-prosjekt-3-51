@@ -25,9 +25,11 @@ class AddEditEvent extends Component {
   }
 
   componentDidMount() {
+    // update datepicker with date clicked from calendar
     if (this.props.navigation.state.params.dayDate) {
       this.setState({date: this.props.navigation.state.params.dayDate})
     }
+    // if we're editing an existing event, copy its properties
     if (this.props.navigation.state.params.event) {
       e = this.props.navigation.state.params.event
       this.setState({
@@ -47,6 +49,8 @@ class AddEditEvent extends Component {
     const disabledButton = (<TouchableOpacity disabled={false}>
       <Text>Add event</Text>
     </TouchableOpacity>) 
+    // create different buttons and use them later in conditional rendering
+    // saveButton is used when event exists already (i.e. we're editing an existing event)
     const saveButton = (<Button
       title="Save event"
       onPress={() => {store.get("events").then((events) => {
@@ -59,6 +63,7 @@ class AddEditEvent extends Component {
               desc: this.state.desc,
               taskDone: false})}); goBack()}}
       />) 
+    // addButton is used when the event is brand new and not saved yet
     const addButton = (<Button
             title="Add event"
             onPress={() => {store.push("events", {title: this.state.title, 

@@ -11,7 +11,6 @@ class EventInfoScreen extends Component {
 
   constructor(props) {
     super(props);
-    // todo: somehow update stuff here
     this.state = {taskDone: this.props.navigation.state.params.event.taskDone}
   }
 
