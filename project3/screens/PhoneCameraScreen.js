@@ -49,13 +49,13 @@ export default class CameraExample extends React.Component {
                 onPress={() => this.toggleRenderCamera()}
                 title="Enable camera"
                 color="#841584"
-                style={{ width: 640, height: 480 }}
+                style={{ width: 300, height: 300 }}
               />
               <Button
                 onPress={() => navigate("Gallery")}
                 title="View camera roll"
                 color="#841584"
-                style={{ width: 640, height: 480 }}
+                style={{ width: 300, height: 300 }}
               /></View>
           }
 
@@ -73,7 +73,7 @@ export default class CameraExample extends React.Component {
   _pickImage = (nav) => {
     return (
       <View >
-        <Camera ref={ref => { this.camera = ref; }} style={{ width: 640, height: 480 }} type={this.state.type}>
+        <Camera ref={ref => { this.camera = ref; }} style={{ width: 300, height: 300 }} type={this.state.type}>
           <View
             style={{
 
@@ -115,7 +115,7 @@ export default class CameraExample extends React.Component {
 
           title="Take background photo!"
           color="#841584"
-          style={{ width: 640, height: 480 }}
+          style={{ width: 300, height: 300 }}
         />
       </View>
 

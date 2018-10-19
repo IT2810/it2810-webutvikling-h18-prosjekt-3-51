@@ -101,6 +101,7 @@ class AddEditEvent extends Component {
             minuteInterval={10}
             onDateChange={(time) => {this.setState({ startTime: time}) }}
           />
+        </View><View style={flexStyle}>
           <Text style={labelStyle}>End time</Text>
           <DatePicker
             mode="time"
