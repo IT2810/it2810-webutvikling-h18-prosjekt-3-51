@@ -110,7 +110,7 @@ class AddEditEvent extends Component {
         <TextInput style={{
           textAlignVertical: "top",
           // android only!
-          flexGrow: 1, margin: 5, padding: 10, height: 50, fontSIze: 12,
+          flexGrow: 1, margin: 5, padding: 10, height: 50, fontSize: 12,
           backgroundColor: "white"
         }}
           placeholder="Description..."

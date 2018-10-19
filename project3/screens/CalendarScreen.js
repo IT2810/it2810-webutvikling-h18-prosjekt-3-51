@@ -14,9 +14,17 @@ class CalendarScreen extends Component {
     super(props);
     this.state = { events: {} }
     this.refreshEvents = this.refreshEvents.bind(this);
+
   }
 
   async componentDidMount() {
+    const didFocusSub = this.props.navigation.addListener(
+      'didFocus',
+      payload => {
+        console.debug('didFocus', payload);
+        (async () => this.refreshEvents())();
+      }
+    );
     await this.refreshEvents()
   }
 
@@ -51,10 +59,10 @@ class CalendarScreen extends Component {
             onPress={() =>
               navigate("AddEvent", {})}
           />
-          <Button
+          {/* <Button
             title="Refresh events"
             onPress={this.refreshEvents}
-          />
+          /> */}
           <Button
             title="Delete all events"
             onPress={() => {store.delete("events")}}
