@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Switch } from "react-native";
 import moment from "moment";
 
-const notDoneStyle = {fontSize: 20, margin: 15, backgroundColor: "#FFAAAA"}
-const doneStyle = {fontSize: 20, margin: 15, backgroundColor: "#AAFFAA"}
+const notDoneStyle = {fontSize: 12, padding: 15, backgroundColor: "#FFAAAA", flexGrow: 1}
+const doneStyle = {fontSize: 12, padding: 15, backgroundColor: "#AAFFAA", flexGrow: 1}
 
 class EventEntry extends Component {
 
@@ -17,7 +17,10 @@ class EventEntry extends Component {
   render() {
     return (
       <TouchableOpacity onPress={this.props.onPress}>
+      <View style={{flexDirection: "row"}}>
         <Text style={this.taskDone ? doneStyle : notDoneStyle}> {this.startTime} {this.title}</Text>
+        <Switch value={this.taskDone} onValueChange={(value) => {this.taskDone = value; this.props.eventSwitch(this.props.event, value)}}></Switch>
+        </View>
       </TouchableOpacity>
     );
   }
