@@ -18,6 +18,9 @@ class DayTaskList extends Component {
 
   refresh() {
     return store.get("events").then((events) => {
+      if (!events) {
+        return null;
+      }
       const results = events.filter(event => moment(event.date).format("YYYY-MM-DD") == moment(this.props.navigation.state.params.date).format("YYYY-MM-DD"));
       this.setState({ events: results })
     })
