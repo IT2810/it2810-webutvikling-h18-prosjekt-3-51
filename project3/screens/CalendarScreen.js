@@ -52,7 +52,7 @@ class CalendarScreen extends Component {
           monthFormat={"yyyy MM"}
           hideDayNames={false}
           showWeekNumbers={true}
-          onDayPress={(day) => {navigate("ViewDay", {date: moment(day).subtract(1, "month")})}}
+          onDayPress={(day) => {navigate("ViewDay", {date: day.dateString})}}
         />
         <View style={buttonRowStyle}>
           <Button
