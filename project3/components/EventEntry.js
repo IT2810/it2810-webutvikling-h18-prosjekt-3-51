@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Switch } from "react-native";
-import moment from "moment";
+import { labelStyle } from "../constants/Styles";
 
-const notDoneStyle = {fontSize: 12, padding: 15, backgroundColor: "#FFAAAA", flexGrow: 1}
-const doneStyle = {fontSize: 12, padding: 15, backgroundColor: "#AAFFAA", flexGrow: 1}
+const notDoneStyle = {fontSize: labelStyle.fontSize, padding: 15, backgroundColor: "#FFAAAA", flexGrow: 1}
+const doneStyle = {fontSize: labelStyle.fontSize, padding: 15, backgroundColor: "#AAFFAA", flexGrow: 1}
 
 class EventEntry extends Component {
 
