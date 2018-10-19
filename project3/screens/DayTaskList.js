@@ -39,7 +39,6 @@ class DayTaskList extends Component {
     const didFocusSub = this.props.navigation.addListener(
       'didFocus',
       payload => {
-        console.debug('didFocus', payload);
         (async () => this.refresh())();
       }
     );
