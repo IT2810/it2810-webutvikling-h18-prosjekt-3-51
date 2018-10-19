@@ -13,7 +13,6 @@ export default class Contacts extends Component {
     this.state = {
       isLoading: true,
       contactList: [],
-      storedContacts: []
     }
   }
 
@@ -50,11 +49,14 @@ export default class Contacts extends Component {
 
   render() {
     const { navigate, goBack } = this.props.navigation;
-
-    const listOfContacts = this.state.contactList.map((item) => {
+    const sortedContacts = this.state.contactList.sort((a,b) => (a.last_name > b.last_name) ? 1 : ((b.last_name > a.last_name) ? -1 : 0));
+    const listOfContacts = sortedContacts.map((item) => {
       return(
-            <ListItem>
+            <ListItem button={true} onPress={() => {
+              navigate('ViewContact', {item: item})
+            }}>
               <Text>{`${item.first_name} ${item.last_name}`}</Text>
+              <Text>   </Text>
               <Text note>{`${item.phone_number}`}</Text>
             </ListItem>
           )
@@ -63,10 +65,10 @@ export default class Contacts extends Component {
     return (
       <Container>
         <Header>
-          <Left>
+          <Left style={{ paddingBottom: 20 }}>
             <Button onPress={() => store.delete('contacts')}><Text>Delete all</Text></Button>
           </Left>
-          <Right>
+          <Right style={{ paddingBottom: 20 }}>
             <Button onPress={() => navigate('AddContact')}><Text>New Contact</Text></Button>
           </Right>
         </Header>

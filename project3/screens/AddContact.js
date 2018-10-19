@@ -12,7 +12,7 @@ import InputField from "../components/InputField.js";
 
 export default class AddContact extends Component {
   static navigationOptions = {
-    title: 'Add/edit contact',
+    title: 'Add contact',
   }
 
   constructor(props) {

@@ -12,6 +12,7 @@ import EventInfoScreen from "../screens/EventInfoScreen";
 import DayTaskList from "../screens/DayTaskList";
 import ContactsScreen from "../screens/ContactsScreen";
 import AddContact from "../screens/AddContact";
+import ViewContact from "../screens/ViewContact";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -79,6 +80,7 @@ CalendarStack.navigationOptions ={
 const ContactsStack = createStackNavigator({
   Contacts: ContactsScreen,
   AddContact: AddContact,
+  ViewContact: ViewContact,
 })
 
 ContactsStack.navigationOptions ={
