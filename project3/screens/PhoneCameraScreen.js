@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, Button, AsyncStorage } from 'react-native';
 import { Camera, Permissions } from 'expo';
+import store from "react-native-simple-store";
 
 export default class CameraExample extends React.Component {
   state = {
@@ -12,11 +13,22 @@ export default class CameraExample extends React.Component {
   async componentWillMount() {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
   this.setState({ hasCameraPermission: status === 'granted' });
-}
+  }
+
+  async componentDidMount() {
+    const didFocusSub = this.props.navigation.addListener(
+      'didFocus',
+      payload => {
+        (async () => this.setState({
+          renderCamera: false}))();
+      }
+    );
+  }
 
 
   render() {
     const { hasCameraPermission } = this.state;
+    const { navigate } = this.props.navigation;
     if (hasCameraPermission === null) {
      return <View />;
    } else if (hasCameraPermission === false) {
@@ -25,14 +37,13 @@ export default class CameraExample extends React.Component {
       return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         {this.state.renderCamera ?
-            this._pickImage()
+            this._pickImage(navigate)
           :
             <Button
             onPress={() => this.toggleRenderCamera()}
-            title="Ta bilde av kontakt"
+            title="Enable camera"
             color="#841584"
-            accessibilityLabel="Ta bilde av kontakt"
-            style={{ width: 200, height: 200 }}
+            style={{ width: 640, height: 480 }}
             />
         }
 
@@ -47,10 +58,10 @@ export default class CameraExample extends React.Component {
     })
   }
 
-  _pickImage = () => {
+  _pickImage = (nav) => {
     return (
       <View >
-          <Camera ref={ref => { this.camera = ref; }} style={{ width: 320, height: 320 }} type={this.state.type}>
+          <Camera ref={ref => { this.camera = ref; }} style={{ width: 640, height: 480 }} type={this.state.type}>
             <View
               style={{
 
@@ -91,12 +102,13 @@ export default class CameraExample extends React.Component {
               if (this.camera) {
               let photo = await this.camera.takePictureAsync();
               {console.log("kjoert33")}
+              store.save("backgroundImage", photo.uri);
+              this.toggleRenderCamera(); nav("Calendar"); 
             }}}
 
-          title="Ta bilde av kontakt"
+          title="Take background photo!"
           color="#841584"
-          accessibilityLabel="Ta bilde av kontakt"
-          style={{ width: 200, height: 200 }}
+          style={{ width: 640, height: 480 }}
           />
         </View>
 

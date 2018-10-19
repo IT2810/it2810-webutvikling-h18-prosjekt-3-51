@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, Button, AsyncStorage } from "react-native";
+import { View, Text, Button, AsyncStorage, Image } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import moment from "moment";
 import store from "react-native-simple-store"
@@ -14,7 +14,7 @@ class CalendarScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { events: {} }
+    this.state = { events: {}, imgUri: null }
     this.refreshEvents = this.refreshEvents.bind(this);
 
   }
@@ -43,6 +43,13 @@ class CalendarScreen extends Component {
     } catch (error) {
       console.error("Error when refreshing events " + error)
     }
+
+    store.get("backgroundImage").then((uri) => {
+      if (!uri) {
+        return null
+      }
+      this.setState({imgUri: uri})
+    })
   }
 
   render() {
@@ -70,6 +77,11 @@ class CalendarScreen extends Component {
             title="Delete all events"
             onPress={() => {store.delete("events")}}
           /> */}
+        </View>
+        <View style={flexStyle}>
+        {this.state.imgUri ? (<Image 
+        style={{width: 256, height: 256}}
+        source={{uri: this.state.imgUri}}/>) : (<Text>No picture, go take one!</Text>)} 
         </View>
       </View>
     );
