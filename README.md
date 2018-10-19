@@ -91,16 +91,6 @@ store.push("events", event)
 
 Where `event` is an event object as mentioned earlier. To retrieve the entire array, we use `store.get("events")` which resolves into an array automatically.
 
-## Testing
-
-The requirements of the project were to have a systematic way of testing the components. We had great difficulties with testing, as our project would not even run the provided tests in the example setup. We could not get npm configured to work with Jest.
-
-Another problem for our testing is that most of our logic is not easily tested. We tried defining a method for adding an event to the store, but difficulties with executing async functions imported from other files arised, so the simplest solution was to just define these with arrow functions fed into components. We could test the logic by simulating presses on buttons (e.g. to add an event and then go to the day page and observe if the event renders) but we fell a bit short on time.
-
-## Collaboration
-
-As with project 2, git was used to keep track of issues and delegate work. This time around we were more structured, and more strictly worked in separate branches for each issue, as the task lent itself well for this; each aspect of the app (calendar & events, contacts, camera) is relatively separate and can thus be implemented in their own navigation stacks.
-
 ## Image processing
 For image handling and processing we have assigned an individual screen where the user can either take pictures with the camera or access the image gallery. The picture is stored in AsyncStorage and viewed on the Calendar screen and thus being the motivational aspect for using the app. All information is stored using AsyncStorage.
 
@@ -139,3 +129,67 @@ toggleRenderCamera = () => {
 ```
 
 Here we have the toggleRenderCamera which updates the state on renderCamera. When the state is changed, the render() is run again and our _pickImage which renders the camera is run.
+
+## Contacts
+
+Contacts are objects stored in AsyncStorage with help from the react-native-simple-store wrapper (the same way the events are handled), which allows us to deal with objects and arrays, rather than the strings used in basic AsyncStorage. Contacts are stored in the following format:
+
+```js
+{
+  first_name: "John",
+  last_name: "Smith",
+  phone_number: "81549300",
+}
+```
+
+To handle individual contact editing and deletion would be very difficult as contacts are not uniquely defined, and this functionality is at the moment not implemented.
+
+### Adding Contacts
+
+The addition of new contacts are done by using text fields that store their content in the local state, then this content is stored to AsyncStorage by clicking a button:
+
+```js
+const addButton = (<Button
+    title="Add contact"
+      onPress={() => {store.push("contacts", {
+        first_name: this.state.first_name,
+        last_name: this.state.last_name,
+        phone_number: this.state.phone_number,
+      }); goBack()}}
+    />)
+```
+
+### Contact List
+
+The list itself is created with components from the 'native-base' library, most notably the List component. Contacts are fetched from Asyncstorage as an array: 
+
+```js
+await store.get('contacts').then((res) => {
+	   this.setState({ contactList: res });
+```
+
+and are mapped to the contact list:
+
+```js
+const listOfContacts = this.state.contactList.map((item) => {
+      return(
+            <ListItem>
+              <Text>{`${item.first_name} ${item.last_name}`}</Text>
+              <Text note>{`${item.phone_number}`}</Text>
+            </ListItem>
+          )
+        });
+        
+[...]
+<List>{listOfContacts}</List>
+```
+
+## Testing
+
+The requirements of the project were to have a systematic way of testing the components. We had great difficulties with testing, as our project would not even run the provided tests in the example setup. We could not get npm configured to work with Jest.
+
+Another problem for our testing is that most of our logic is not easily tested. We tried defining a method for adding an event to the store, but difficulties with executing async functions imported from other files arised, so the simplest solution was to just define these with arrow functions fed into components. We could test the logic by simulating presses on buttons (e.g. to add an event and then go to the day page and observe if the event renders) but we fell a bit short on time.
+
+## Collaboration
+
+As with project 2, git was used to keep track of issues and delegate work. This time around we were more structured, and more strictly worked in separate branches for each issue, as the task lent itself well for this; each aspect of the app (calendar & events, contacts, camera) is relatively separate and can thus be implemented in their own navigation stacks.
