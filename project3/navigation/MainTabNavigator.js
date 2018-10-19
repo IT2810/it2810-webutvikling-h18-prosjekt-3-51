@@ -48,12 +48,9 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Contacts (?)',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-    />
+    <EmojIcon emoji={"👥"} focused={focused}/>
   ),
 };
 
@@ -67,10 +64,7 @@ const CalendarStack = createStackNavigator({
 CalendarStack.navigationOptions ={
   tabBarLabel: "Calendar",
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-    />
+    <EmojIcon emoji={"📅"} focused={focused}/>
   ),
 };
 
