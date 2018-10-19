@@ -24,23 +24,12 @@ export default class Contacts extends Component {
         (async () => this.refreshScreen())();
       }
     );
-
-     /*
-     let cont = [];
-     await store.get('contacts').then(contacts => {
-       contacts.forEach(c => cont.push(
-         <ListItem>
-           <Text>{`${c.first_name} ${c.last_name}`}</Text>
-           <Text note>{`${c.phone_number}`}</Text>
-         </ListItem>
-       )).then(this.setState(storedContacts: cont));
-     });
-     */
   }
 
   async refreshScreen() {
     await store.get('contacts').then((res) => {
       if(!res) {
+        this.setState({ contactList: [] });
         return null;
       }
 	   this.setState({ contactList: res });
@@ -52,7 +41,7 @@ export default class Contacts extends Component {
     const sortedContacts = this.state.contactList.sort((a,b) => (a.last_name > b.last_name) ? 1 : ((b.last_name > a.last_name) ? -1 : 0));
     const listOfContacts = sortedContacts.map((item) => {
       return(
-            <ListItem button={true} onPress={() => {
+            <ListItem key={`${item.first_name}${item.last_name}`} button={true} onPress={() => {
               navigate('ViewContact', {item: item})
             }}>
               <Text>{`${item.first_name} ${item.last_name}`}</Text>
@@ -66,7 +55,7 @@ export default class Contacts extends Component {
       <Container>
         <Header>
           <Left style={{ paddingBottom: 20 }}>
-            <Button onPress={() => store.delete('contacts')}><Text>Delete all</Text></Button>
+            <Button onPress={async () => {store.delete('contacts'); this.refreshScreen();}}><Text>Delete all</Text></Button>
           </Left>
           <Right style={{ paddingBottom: 20 }}>
             <Button onPress={() => navigate('AddContact')}><Text>New Contact</Text></Button>
@@ -75,17 +64,6 @@ export default class Contacts extends Component {
         <Content>
           <List>
             {listOfContacts}
-          {/*
-            <ListItem>
-              <Text>Simon Mignolet</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Nathaniel Clyne</Text>
-            </ListItem>
-            <ListItem>
-              <Text>Dejan Lovren</Text>
-            </ListItem>
-            */}
           </List>
         </Content>
       </Container>
