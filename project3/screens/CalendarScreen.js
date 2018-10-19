@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, Button, AsyncStorage, Image } from "react-native";
+import { View, Text, Button, AsyncStorage, Image, ScrollView } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import moment from "moment";
 import store from "react-native-simple-store"
@@ -36,7 +36,7 @@ class CalendarScreen extends Component {
     // refreshes the events by fetching from asyncstorage and creating an object to feed into markedDates
     try {
       const value = await AsyncStorage.getItem("events"); // fetch all events, should come as a JSON-array
-      events = value ? JSON.parse(value) : [] // parse it to an array or create a new array in case 
+      events = value ? JSON.parse(value) : [] // parse it to an array or create a new array in case
       let markedDates = {}
       Object.values(events).map(event => { markedDates[event.date] = { marked: true } })
       this.setState({ events: markedDates })
@@ -55,7 +55,7 @@ class CalendarScreen extends Component {
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View>
+      <ScrollView>
         <Calendar
           markedDates={this.state.events}
           monthFormat={"yyyy MM"}
@@ -79,11 +79,11 @@ class CalendarScreen extends Component {
           /> */}
         </View>
         <View style={flexStyle}>
-        {this.state.imgUri ? (<Image 
+        {this.state.imgUri ? (<Image
         style={{width: 256, height: 256}}
-        source={{uri: this.state.imgUri}}/>) : (<Text>No picture, go take one!</Text>)} 
+        source={{uri: this.state.imgUri}}/>) : (<Text>No picture, go take one!</Text>)}
         </View>
-      </View>
+      </ScrollView>
     );
   }
 
