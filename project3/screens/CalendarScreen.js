@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { View, Text, Button, AsyncStorage } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
@@ -6,6 +7,7 @@ import store from "react-native-simple-store"
 import {labelStyle, flexStyle, buttonRowStyle} from "../constants/Styles"
 
 class CalendarScreen extends Component {
+
   static navigationOptions = {
     title: 'Calendar',
   };
@@ -72,6 +74,7 @@ class CalendarScreen extends Component {
       </View>
     );
   }
+
 }
 
 export default CalendarScreen;
